@@ -1,0 +1,288 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.slider {
+    position: relative;
+    width: 300px;
+    padding: 30px 0;
+    margin: 15px 0;
+}
+
+.slider-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.slider-label {
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+}
+
+.slider-value {
+    color: white;
+    font-family: monospace;
+    font-size: 14px;
+    padding: 2px 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* 为不同的滑块添加独特的标识色 */
+.brightness-slider .slider-label::before {
+    content: '☀️';
+    margin-right: 4px;
+}
+
+.temperature-slider .slider-label::before {
+    content: '🌡️';
+    margin-right: 4px;
+}
+
+/* 更新 JavaScript 相关的样式位置 */
+.slider input[type="range"] {
+    top: 40px;
+}
+
+.slider-track {
+    top: 40px;
+}
+
+.slider input[type="range"] {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    background: transparent;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.slider-track {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.slider-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.4)
+    );
+    border-radius: 4px;
+    transition: width 0.1s ease;
+}
+
+.slider:hover .slider-label {
+    background: rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px);
+}
+
+.brightness-slider .slider-label {
+    border-left: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.temperature-slider .slider-label {
+    border-left: 3px solid rgba(255, 166, 0, 0.8);
+}
+
+/* 自定义滑块样式 */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 
+        0 2px 6px rgba(0, 0, 0, 0.2),
+        0 0 0 4px rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(0.95);
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.2),
+        0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+/* 为亮度和色温滑块添加不同的填充颜色 */
+.brightness-slider .slider-fill {
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.6)
+    );
+}
+
+.temperature-slider .slider-fill {
+    background: linear-gradient(to right,
+        hsl(120, 100%, 50%),  /* 冷色调 */
+        hsl(60, 100%, 50%),   /* 中性色 */
+        hsl(0, 100%, 50%)     /* 暖色调 */
+    );
+}
+
+.usage-info {
+    margin-bottom: 30px;
+    color: white;
+    text-align: center;
+}
+
+.usage-info h2 {
+    margin: 0 0 15px 0;
+    font-size: 20px;
+    font-weight: normal;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.usage-details {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px 25px;
+    border-radius: 12px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.usage-details p {
+    margin: 8px 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.usage-details ul {
+    margin: 8px 0;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.usage-details li {
+    margin: 4px 0;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 适配移动设备 */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        width: 90%;
+        max-width: 400px;
+    }
+    
+    .usage-details {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+    
+    .usage-info h2 {
+        font-size: 18px;
+    }
+}
+
+/* 当屏幕亮度很暗时保持文字可见 */
+@media (prefers-color-scheme: dark) {
+    .usage-details {
+        background: rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* 添加色温预览样式 */
+.temperature-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin: 0 8px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+/* 调整色温滑块信息布局 */
+.temperature-slider .slider-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.temperature-slider .slider-value {
+    margin-left: auto;
+}
+
+/* 修改滑块填充颜色渐变 */
+.temperature-slider .slider-track {
+    background: linear-gradient(to right,
+        hsl(120, 100%, 50%),  /* 冷色调 */
+        hsl(60, 100%, 50%),   /* 中性色 */
+        hsl(0, 100%, 50%)     /* 暖色调 */
+    );
+}
+
+.temperature-slider .slider-fill {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* 优化滑块外观 */
+.slider {
+    margin: 15px 0;
+}
+
+.temperature-slider {
+    margin-bottom: 30px;
+} 

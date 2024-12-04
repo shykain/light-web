@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光源应用</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="usage-info">
+            <h2>网页光源工具 💡</h2>
+            <div class="usage-details">
+                <p>适用场景：</p>
+                <ul>
+                    <li>🔦 室内应急照明</li>
+                    <li>📸 简易补光工具</li>
+                    <li>📱 手机屏幕光源</li>
+                    <li>💻 电脑屏幕照明</li>
+                    <li>🌅 环境氛围营造</li>
+                </ul>
+                <p>使用方法：</p>
+                <ul>
+                    <li>⚡ 拖动滑块调节亮度大小</li>
+                    <li>🌈 调节色温可改变光线冷暖</li>
+                    <li>💡 请根据环境选择合适亮度</li>
+                    <li>⚠️ 长时间使用请注意目光保护</li>
+                </ul>
+            </div>
+        </div>
+        <div class="controls">
+            <div class="slider-container">
+                <div class="slider temperature-slider">
+                    <div class="slider-info">
+                        <div class="slider-label">色温</div>
+                        <div class="temperature-preview"></div>
+                        <div class="slider-value"><span>50</span>%</div>
+                    </div>
+                    <input type="range" id="temperature" min="0" max="100" value="50">
+                    <div class="slider-track">
+                        <div class="slider-fill"></div>
+                    </div>
+                </div>
+                <div class="slider brightness-slider">
+                    <div class="slider-info">
+                        <div class="slider-label">亮度</div>
+                        <div class="slider-value"><span>50</span>%</div>
+                    </div>
+                    <input type="range" id="brightness" min="0" max="150" value="50">
+                    <div class="slider-track">
+                        <div class="slider-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const brightnessSlider = document.getElementById('brightness');
+        const temperatureSlider = document.getElementById('temperature');
+        const body = document.body;
+        const temperaturePreview = document.querySelector('.temperature-preview');
+
+        function updateLight() {
+            const brightness = brightnessSlider.value;
+            const temperature = temperatureSlider.value;
+            
+            const hue = 60 - (temperature - 50) * 1.2;
+            
+            body.style.backgroundColor = `hsl(${hue}, 100%, ${Math.min(brightness, 100)}%)`;
+            
+            temperaturePreview.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+        }
+
+        brightnessSlider.addEventListener('input', updateLight);
+        temperatureSlider.addEventListener('input', updateLight);
+        
+        updateLight();
+
+        function updateSliders() {
+            const brightnessTrack = document.querySelector('.brightness-slider .slider-fill');
+            const temperatureTrack = document.querySelector('.temperature-slider .slider-fill');
+            const brightnessValue = document.querySelector('.brightness-slider .slider-value span');
+            const temperatureValue = document.querySelector('.temperature-slider .slider-value span');
+            
+            brightnessTrack.style.width = `${(brightnessSlider.value / 150) * 100}%`;
+            temperatureTrack.style.width = `${temperatureSlider.value}%`;
+            
+            brightnessValue.textContent = brightnessSlider.value;
+            temperatureValue.textContent = temperatureSlider.value;
+        }
+
+        brightnessSlider.addEventListener('input', updateSliders);
+        temperatureSlider.addEventListener('input', updateSliders);
+        updateSliders();
+    </script>
+</body>
+</html> 
